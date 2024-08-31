@@ -1,3 +1,32 @@
+== ESP32 OPUS ==
+
+Only modified the CMakeLists.txt for compilation under the ESP-IDF 5.x SDK.
+只修改了 CMakeLists.txt，用于在 ESP-IDF 5.x SDK 下编译。
+
+Clone the repos into the components directory and it’s ready to use.
+放置到 components 目录下即可使用。
+
+=== Example ===
+
+```cpp
+#include "opus.h"
+
+...
+
+auto encoder = opus_encoder_create(16000, 1, OPUS_APPLICATION_VOIP, nullptr);
+assert(encoder != nullptr);
+opus_encoder_ctl(encoder, OPUS_SET_COMPLEXITY(5));
+
+int frame_size = 960;
+int16_t pcm[frame_size];
+uint8_t opus[1500];
+
+int len = opus_encode(encoder, pcm, frame_size, opus, sizeof(opus));
+printf("len: %d\n", len);
+
+opus_encoder_destroy(encoder);
+```
+
 == Opus audio codec ==
 
 Opus is a codec for interactive speech and audio transmission over the Internet.
