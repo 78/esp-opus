@@ -1,12 +1,14 @@
-== ESP32 OPUS ==
+## ESP32 OPUS
 
 Only modified the CMakeLists.txt for compilation under the ESP-IDF 5.x SDK.
+
 只修改了 CMakeLists.txt，用于在 ESP-IDF 5.x SDK 下编译。
 
 Clone the repos into the components directory and it’s ready to use.
+
 放置到 components 目录下即可使用。
 
-=== Example ===
+### Example 
 
 ```cpp
 #include "opus.h"
@@ -26,6 +28,8 @@ printf("len: %d\n", len);
 
 opus_encoder_destroy(encoder);
 ```
+
+## Original README
 
 == Opus audio codec ==
 
