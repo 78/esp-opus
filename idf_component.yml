@@ -1,9 +1,8 @@
 url: https://github.com/78/esp-opus.git
-version: 1.0.3
+version: 1.0.4
 dependencies:
   idf: '>=5.0'
 description: OPUS for ESP32
-maintainer: Terrence <terrence@tenclass.com>
 files:
   exclude:
   - .github
