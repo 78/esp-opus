@@ -1,5 +1,5 @@
 url: https://github.com/78/esp-opus.git
-version: 1.0.2
+version: 1.0.3
 dependencies:
   idf: '>=5.0'
 description: OPUS for ESP32
