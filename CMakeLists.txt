@@ -166,12 +166,30 @@ list(APPEND srcs ${CELT_SOURCES}
 								 ${SILK_SOURCES_ARM_RTCD}
 	)
 
-set(PRIV_INCLUDES "celt/" "silk/" "silk/fixed" "src/")
+set(PRIV_INCLUDES "celt/" "silk/" "silk/fixed" "src/" ".")
+
+# 定义编译选项
+set(OPUS_COMPILE_OPTIONS
+    -DHAVE_ALLOCA_H
+    -DHAVE_LRINT
+    -DHAVE_LRINTF
+    -DFIXED_POINT=1
+    -DDISABLE_FLOAT_API
+    -DHAVE_MEMORY_H
+    -DUSE_ALLOCA
+    -DOPUS_BUILD
+    -O2
+    -Wno-maybe-uninitialized
+    -Wno-unused-variable
+)
+
+# 根据芯片类型添加特定选项
+if(${IDF_TARGET} STREQUAL "esp32s2" OR ${IDF_TARGET} STREQUAL "esp32s3")
+    list(APPEND OPUS_COMPILE_OPTIONS -DOPUS_XTENSA_LX7)
+endif()
 
 idf_component_register(SRCS ${srcs}
                        INCLUDE_DIRS "include"
                        PRIV_INCLUDE_DIRS ${PRIV_INCLUDES})
 
-target_compile_options(${COMPONENT_LIB} PRIVATE -DHAVE_ALLOCA_H -DHAVE_LRINT
-	-DHAVE_LRINTF -DFIXED_POINT -DDISABLE_FLOAT_API -DHAVE_MEMORY_H -DUSE_ALLOCA
-	-DOPUS_BUILD -O2 -Wno-maybe-uninitialized -Wno-unused-variable)
+target_compile_options(${COMPONENT_LIB} PRIVATE ${OPUS_COMPILE_OPTIONS})
